@@ -67,20 +67,22 @@ void enqueue(Queue<T> &q, const T &value, int priority) {
     q.Head = newElement;
     q.Tail = newElement;
   }
+
   else {
     ElementPtr<T> tempPrev = nullptr;
     ElementPtr<T> temp = q.Head;
-    while (temp->priority <= newElement->priority){
-      if (temp->next == nullptr) break;
+
+    while (temp->priority >= newElement->priority){
+      if (temp == q.Tail) break;
       tempPrev = temp;
       temp = temp->next;
     }
 
-    if (temp == q.Head && newElement->priority < temp->priority){
+    if (temp == q.Head && newElement->priority > temp->priority){
       newElement->next = temp;
       q.Head = newElement;
     }
-    else if (temp == q.Tail && newElement->priority > temp->priority){
+    else if (temp == q.Tail && newElement->priority < temp->priority){
       temp->next = newElement;
       q.Tail = newElement;
     }
